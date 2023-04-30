@@ -1,3 +1,5 @@
+import { keyboardKeys } from './keyboard-keys.js';
+
 const body = document.querySelector('body'); // create basic html structure 
 
 // create container for project
