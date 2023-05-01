@@ -24,6 +24,9 @@ section.appendChild(textarea);
 const keyboard = document.createElement('div');
 keyboard.className = 'keyboard-container';
 
+const additionalText = document.createElement('div');
+additionalText.className = 'additional-text';
+
 // add everything in body
 section.appendChild(keyboard);
 body.appendChild(section);
@@ -284,8 +287,11 @@ function getCaretPos(obj) {
     return 0;
 }
 
+additionalText.innerHTML = 'Текст можно поменять при сочетании клавиш Alt + Ctrl';
+section.appendChild(additionalText);
 
 onMouseClick();
 changeLanguage();
 onClickInTextArea();
 switchOnShift();
+
