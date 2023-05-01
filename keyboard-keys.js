@@ -1,3 +1,4 @@
+export { keyboardKeys };
 // generate simple keyboard 
 const keyboardKeys = [
     [
@@ -281,4 +282,3 @@ const keyboardKeys = [
     ],
 ];
 
-export { keyboardKeys };

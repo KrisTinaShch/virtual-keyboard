@@ -27,3 +27,33 @@ keyboard.className = 'keyboard-container';
 // add everything in body
 section.appendChild(keyboard);
 body.appendChild(section);
+
+const keyboardKeysItems = {};
+
+function addKeys() {
+
+    keyboardKeys.forEach((row) => {
+        const keyboardRow = document.createElement('div');
+        keyboardRow.className = 'keyboard-row';
+
+        row.forEach((key) => {
+            keyboardKeysItems[key.keyName] = key.lang;
+            if (key.func) {
+                keyboardKeysItems[key.keyName].func = key.func;
+            }
+
+            const keyItem = document.createElement('button');
+            keyItem.setAttribute('id', key.keyName);
+            keyItem.setAttribute('type', 'button');
+            keyItem.className = 'key-item';
+
+            keyItem.textContent = key.lang.en;
+            keyboardRow.appendChild(keyItem);
+        })
+        keyboard.appendChild(keyboardRow);
+    });
+
+
+}
+
+addKeys();
