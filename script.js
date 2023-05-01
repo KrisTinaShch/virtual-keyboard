@@ -97,7 +97,7 @@ function changeLanguage() {
         }
     });
 }
-changeLanguage();
+
 
 function onClickInTextArea() {
 
@@ -169,6 +169,63 @@ function onClickInTextArea() {
     })
 }
 
+function onMouseClick() {
+    keyboard.addEventListener('mousedown', (event) => {
+        let eventOnMouse = event.target.id;
+        let keyOnMouse = keyboardKeysItems[event.target.id];
+        if (eventOnMouse != 'Delete' && eventOnMouse != 'Backspace' && eventOnMouse != 'Enter' && eventOnMouse != 'CapsLock' && caps == false && eventOnMouse != 'Tab' && eventOnMouse != "ShiftLeft" && eventOnMouse != "ControlLeft" && eventOnMouse != "ControlRight" && eventOnMouse != "ShiftRight" && eventOnMouse != "AltLeft" && eventOnMouse != "AltRight" && keyboardKeysItems[eventOnMouse]) {
+            textarea.value += keyOnMouse[currentLanguage];
+        }
+        else if (eventOnMouse == 'Enter') {
+            textarea.value += `\n`;
+        }
+        else if (eventOnMouse == 'CapsLock') {
+            caps = !caps;
+        }
+        else if (eventOnMouse == 'Tab') {
+            textarea.value += `\t`; // работает с ошибкой ,надо доработать 
+        }
+        else if (eventOnMouse == 'Backspace') {
+            let currentTextareaValue = textarea.value;
+
+            if (currentTextareaValue.length > 0 && getCaretPos(textarea) < currentTextareaValue.length) {
+                textarea.value = currentTextareaValue.slice(0, getCaretPos(textarea) - 1) + currentTextareaValue.slice(getCaretPos(textarea));
+            }
+            if (getCaretPos(textarea) + 1 > currentTextareaValue.length) {
+                textarea.value = currentTextareaValue.slice(0, currentTextareaValue.length - 1);
+            }
+
+        }
+        else if (eventOnMouse == 'Delete') {
+            let currentTextareaValue = textarea.value;
+            if (currentTextareaValue.length > 0 && getCaretPos(textarea) < currentTextareaValue.length) {
+                textarea.value = currentTextareaValue.slice(0, getCaretPos(textarea)) + currentTextareaValue.slice(getCaretPos(textarea) + 1);
+            }
+            if (getCaretPos(textarea) + 1 > currentTextareaValue.length) {
+                textarea.value = currentTextareaValue.slice(0, currentTextareaValue.length - 1);
+            }
+        }
+
+        if (caps) {
+            if (eventOnMouse != 'CapsLock' && eventOnMouse != 'ShiftRight' && eventOnMouse != 'ShiftLeft' && eventOnMouse != 'ControlRight' && eventOnMouse != 'ControlLeft' && eventOnMouse != 'AltLeft' && eventOnMouse != 'AltRight' && keyboardKeysItems[eventOnMouse] && eventOnMouse != 'Enter' && eventOnMouse != 'Tab' && eventOnMouse != 'Delete' && eventOnMouse != 'Backspace') {
+                textarea.value += keyboardKeysItems[eventOnMouse][currentLanguage].toUpperCase();
+            }
+        }
+        if (keyboardKeysItems[eventOnMouse]) {
+            const keyIndex = keyItemsArray.findIndex((key) => key.id === event.target.id);
+            keyItemsArray[keyIndex].classList.add('_key-active');
+        }
+
+
+        console.log(eventOnMouse);
+    });
+    keyboard.addEventListener('mouseup', function (event) {
+        if (keyboardKeysItems[event.target.id]) {
+            const keyIndex = keyItemsArray.findIndex((key) => key.id === event.target.id);
+            keyItemsArray[keyIndex].classList.remove('_key-active');
+        }
+    })
+}
 
 function switchOnShift(shiftKey, event) {
     if (shiftKey) {
@@ -202,5 +259,26 @@ function switchOnShift(shiftKey, event) {
     }
 
 }
-switchOnShift();
+
+function getCaretPos(obj) {
+    obj.focus();
+    if (obj.selectionStart) return obj.selectionStart;
+    else if (document.selection) {
+        var sel = document.selection.createRange();
+        var clone = sel.duplicate();
+        sel.collapse(true);
+        clone.moveToElementText(obj);
+        clone.setEndPoint('EndToEnd', sel);
+        return clone.text.length;
+    }
+    return 0;
+}
+function cleanForm() {
+    setTimeout("cleanForm();", 100);
+}
+
+cleanForm();
+onMouseClick();
+changeLanguage();
 onClickInTextArea();
+switchOnShift();
