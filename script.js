@@ -61,10 +61,14 @@ addKeys();
 
 const keyItem = document.querySelectorAll('.key-item');
 
-let currentLanguage = 'en';
+
+let currentLanguage = localStorage.getItem('language') || 'en';
+
 let caps = false;
 const keyItemsArray = [...keyItem];
+
 function changeLanguage() {
+    currentLanguage = localStorage.getItem('language') || 'en';
     document.addEventListener('keydown', (event) => {
         if (event.code === 'AltLeft') {
             keyboardKeysItems[event.code].func = true;
@@ -74,19 +78,21 @@ function changeLanguage() {
         }
         if (keyboardKeysItems['ControlLeft'].func && keyboardKeysItems['AltLeft'].func) {
             if (currentLanguage == 'en') {
-                keyItem.forEach((keyTranslation) => {
-                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id]["ru"];
-                });
                 currentLanguage = 'ru';
+                localStorage.setItem('language', currentLanguage);
+                keyItem.forEach((keyTranslation) => {
+                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id][`${currentLanguage}`];
+                });
             }
             else {
-                keyItem.forEach((keyTranslation) => {
-                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id]["en"];
-                })
                 currentLanguage = 'en';
+                localStorage.setItem('language', currentLanguage);
+                keyItem.forEach((keyTranslation) => {
+                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id][`${currentLanguage}`];
+                });
             }
-
         }
+
     });
     document.addEventListener('keyup', (event) => {
         if (event.code === 'AltLeft') {
@@ -96,9 +102,12 @@ function changeLanguage() {
             keyboardKeysItems[event.code].func = false;
         }
     });
+    keyItem.forEach((keyTranslation) => {
+        keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id][`${currentLanguage}`];
+    });
 }
 
-
+console.log(currentLanguage);
 function onClickInTextArea() {
 
 
@@ -149,7 +158,7 @@ function onClickInTextArea() {
             }
         }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
-           
+
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.add('_key-active');
         }
@@ -162,7 +171,7 @@ function onClickInTextArea() {
 
         }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
-            
+
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.remove('_key-active');
         }
@@ -184,7 +193,7 @@ function onMouseClick() {
             caps = !caps;
         }
         else if (eventOnMouse == 'Tab') {
-            textarea.value += `\t`; 
+            textarea.value += `\t`;
         }
         else if (eventOnMouse == 'Backspace') {
             let currentTextareaValue = textarea.value;
@@ -274,6 +283,7 @@ function getCaretPos(obj) {
     }
     return 0;
 }
+
 
 onMouseClick();
 changeLanguage();
