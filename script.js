@@ -152,7 +152,7 @@ function onClickInTextArea() {
         }
 
         if (caps) {
-            if (event.code != 'CapsLock' && event.code != 'Backspace' && event.code != 'Delete' && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+            if (event.code != 'CapsLock' && event.code != 'Backspace' && event.code != 'Delete' && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage] && event.code != 'Enter') {
                 textarea.value += keyboardKeysItems[event.code][currentLanguage].toUpperCase();
 
             }
