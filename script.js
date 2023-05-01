@@ -62,7 +62,8 @@ addKeys();
 const keyItem = document.querySelectorAll('.key-item');
 
 let currentLanguage = 'en';
-
+let caps = false;
+const keyItemsArray = [...keyItem];
 function changeLanguage() {
     document.addEventListener('keydown', (event) => {
         if (event.code === 'AltLeft') {
@@ -100,16 +101,19 @@ changeLanguage();
 
 function onClickInTextArea() {
 
-    const keyItemsArray = [...keyItem];
-    let caps = false;
-    let notSpecialKey = false;
 
+    let shift = false;
+    let notSpecialKey = false;
+    // при нажатии на обычные клавиши вводить их в текстовое поле
 
     document.addEventListener('keydown', (event) => {
         event.preventDefault();
         if (event.code != 'Delete' && event.code != 'Backspace' && event.code != 'Enter' && event.code != 'CapsLock' && caps == false && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
-
-            textarea.value += keyboardKeysItems[event.code][currentLanguage];
+            if (shift) {
+                switchOnShift(shift, event.key);
+            } else {
+                textarea.value += keyboardKeysItems[event.code][currentLanguage];
+            }
             notSpecialKey = true;
 
         }
@@ -132,6 +136,10 @@ function onClickInTextArea() {
             textarea.value += `\t`;
             notSpecialKey = true;
         }
+        else if (event.code == 'ShiftLeft') {
+            shift = true;
+            notSpecialKey = true;
+        }
 
         if (caps) {
             if (event.code != 'CapsLock' && event.code != 'Backspace' && event.code != 'Delete' && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
@@ -140,6 +148,7 @@ function onClickInTextArea() {
             }
         }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+            // при нажатии на клавиши подсвечивать их
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.add('_key-active');
         }
@@ -147,8 +156,12 @@ function onClickInTextArea() {
 
     });
     document.addEventListener('keyup', (event) => {
+        if (event.code == 'ShiftLeft') {
+            shift = false;
 
+        }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+            // при отжатии на клавиши убирать подсветку
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.remove('_key-active');
         }
@@ -156,4 +169,38 @@ function onClickInTextArea() {
     })
 }
 
+
+function switchOnShift(shiftKey, event) {
+    if (shiftKey) {
+        if (event === '`' && currentLanguage === 'en') {
+            textarea.value += '~';
+        } else if (event === '-' && currentLanguage === 'en') {
+            textarea.value += '_';
+        } else if (event === '=' && currentLanguage === 'en') {
+            textarea.value += '+';
+        } else if (event === '[' && currentLanguage === 'en') {
+            textarea.value += '{';
+        } else if (event === ']' && currentLanguage === 'en') {
+            textarea.value += '}';
+        } else if (event === '\\' && currentLanguage === 'en') {
+            textarea.value += '|';
+        } else if (event === ';' && currentLanguage === 'en') {
+            textarea.value += ':';
+        } else if (event === '\'' && currentLanguage === 'en') {
+            textarea.value += '"';
+        } else if (event === ',' && currentLanguage === 'en') {
+            textarea.value += '<';
+        } else if (event === '.' && currentLanguage === 'en') {
+            textarea.value += '>';
+        } else if (event === '/' && currentLanguage === 'en') {
+            textarea.value += '?';
+        } else if (event === '/' && currentLanguage === 'ru') {
+            textarea.value += ',';
+        } else {
+            textarea.value += event.toUpperCase();
+        }
+    }
+
+}
+switchOnShift();
 onClickInTextArea();
