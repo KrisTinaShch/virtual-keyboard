@@ -57,3 +57,44 @@ function addKeys() {
 }
 
 addKeys();
+
+// change language and safe language
+const keyItem = document.querySelectorAll('.key-item');
+
+let currentLanguage = 'en';
+
+function changeLanguage() {
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'AltLeft') {
+            keyboardKeysItems[event.code].func = true;
+        }
+        if (event.code === 'ControlLeft') {
+            keyboardKeysItems[event.code].func = true;
+        }
+        if (keyboardKeysItems['ControlLeft'].func && keyboardKeysItems['AltLeft'].func) {
+            if (currentLanguage == 'en') {
+                keyItem.forEach((keyTranslation) => {
+                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id]["ru"];
+                });
+                currentLanguage = 'ru';
+            }
+            else {
+                keyItem.forEach((keyTranslation) => {
+                    keyTranslation.innerHTML = keyboardKeysItems[keyTranslation.id]["en"];
+                })
+                currentLanguage = 'en';
+            }
+
+        }
+    });
+    document.addEventListener('keyup', (event) => {
+        if (event.code === 'AltLeft') {
+            keyboardKeysItems[event.code].func = false;
+        }
+        if (event.code === 'ControlLeft') {
+            keyboardKeysItems[event.code].func = false;
+        }
+    });
+}
+
+changeLanguage()
