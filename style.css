@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    background: #292b2f;
+    font-family: 'Montserrat', sans-serif;
+    height: 90vh;
+}
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+    font-family: Verdana;
+    color: #fff;
+}
+
+.textarea {
+    display: block;
+    width: 70%;
+    height: 200px;
+    margin: 10px auto 10px;
+    padding: 10px;
+    color: #444444;
+    overflow: auto;
+    font-family: inherit;
+    line-height: 1.15;
+}
+
+.keyboard-container {
+    width: 703px;
+    height: fit-content;
+    padding: 5px;
+    padding-left: 0;
+    padding-bottom: 0;
+    background: #292B2F;
+    border: 3px solid #222222;
+    border-radius: 5px;
+}
+
+.keyboard-container .keyboard-row {
+    clear: both;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 8px;
+}
+
+
+.keyboard-container .keyboard-row {
+    clear: both;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 8px;
+}
+
+
+.key-item {
+    float: left;
+    min-width: 40px;
+    height: 40px;
+    margin-left: 6px;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+    background: #32393F;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-radius 0.3s, background-color 0.3s;
+    color: #b0e2ff;
+    text-shadow: 0 0 0px #b0e2ff,
+        0 0 4px #b0e2ff,
+        0 0 0px #b0e2ff,
+        0 0 0px #b0e2ff;
+    border: 0;
+    box-shadow: 0px 0px 4px 0px rgb(16 17 18);
+    font-size: 16px;
+}
+
+#Space.key-item {
+    min-width: 222px;
+}
+
+#CapsLock.key-item,
+#ShiftLeft.key-item,
+#ControlLeft.key-item,
+#ControlRight.key-item,
+#Enter.key-item,
+#Tab.key-item,
+#ShiftRight.key-item {
+    min-width: 89px;
+}
+
+.key-item._key-active {
+    color: #fff;
+    background: #b0e2ff;
+}
+
+.additional-text {
+    text-align: center;
+    color: #fff;
+}
