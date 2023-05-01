@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 body {
-    background: #B1B1B1;
+    background: #292b2f;
+    font-family: 'Montserrat', sans-serif;
+    height: 90vh;
+}
+
+* {
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -7,16 +15,21 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    justify-content: center;
 }
 
 .title {
     text-align: center;
     font-family: Verdana;
+    color: #fff;
 }
 
 .textarea {
     display: block;
-    width: 700px;
+    width: 70%;
     height: 200px;
     margin: 10px auto 10px;
     padding: 10px;
@@ -27,15 +40,14 @@ body {
 }
 
 .keyboard-container {
+    width: 703px;
     height: fit-content;
     padding: 5px;
     padding-left: 0;
     padding-bottom: 0;
-    background: #888888;
+    background: #292B2F;
     border: 3px solid #222222;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
 }
 
 .keyboard-container .keyboard-row {

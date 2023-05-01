@@ -58,7 +58,7 @@ function addKeys() {
 
 addKeys();
 
-// change language and safe language
+
 const keyItem = document.querySelectorAll('.key-item');
 
 let currentLanguage = 'en';
@@ -122,6 +122,7 @@ function onClickInTextArea() {
             if (currentTextareaValue.length > 0) {
                 textarea.value = currentTextareaValue.slice(0, currentTextareaValue.length - 1);
             }
+
             notSpecialKey = true;
         }
         else if (event.code == 'Enter') {
@@ -148,7 +149,7 @@ function onClickInTextArea() {
             }
         }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
-            // при нажатии на клавиши подсвечивать их
+           
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.add('_key-active');
         }
@@ -161,7 +162,7 @@ function onClickInTextArea() {
 
         }
         if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
-            // при отжатии на клавиши убирать подсветку
+            
             let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
             keyItemsArray[keyIndex].classList.remove('_key-active');
         }
@@ -183,7 +184,7 @@ function onMouseClick() {
             caps = !caps;
         }
         else if (eventOnMouse == 'Tab') {
-            textarea.value += `\t`; // работает с ошибкой ,надо доработать 
+            textarea.value += `\t`; 
         }
         else if (eventOnMouse == 'Backspace') {
             let currentTextareaValue = textarea.value;
@@ -273,11 +274,7 @@ function getCaretPos(obj) {
     }
     return 0;
 }
-function cleanForm() {
-    setTimeout("cleanForm();", 100);
-}
 
-cleanForm();
 onMouseClick();
 changeLanguage();
 onClickInTextArea();
