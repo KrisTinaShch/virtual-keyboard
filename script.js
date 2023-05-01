@@ -96,5 +96,64 @@ function changeLanguage() {
         }
     });
 }
+changeLanguage();
 
-changeLanguage()
+function onClickInTextArea() {
+
+    const keyItemsArray = [...keyItem];
+    let caps = false;
+    let notSpecialKey = false;
+
+
+    document.addEventListener('keydown', (event) => {
+        event.preventDefault();
+        if (event.code != 'Delete' && event.code != 'Backspace' && event.code != 'Enter' && event.code != 'CapsLock' && caps == false && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+
+            textarea.value += keyboardKeysItems[event.code][currentLanguage];
+            notSpecialKey = true;
+
+        }
+        else if (event.code == 'Delete' || event.code == 'Backspace') {
+            let currentTextareaValue = textarea.value;
+            if (currentTextareaValue.length > 0) {
+                textarea.value = currentTextareaValue.slice(0, currentTextareaValue.length - 1);
+            }
+            notSpecialKey = true;
+        }
+        else if (event.code == 'Enter') {
+            textarea.value += `\n`;
+            notSpecialKey = true;
+        }
+        else if (event.code == 'CapsLock') {
+            caps = !caps;
+            notSpecialKey = true;
+        }
+        else if (event.code == 'Tab') {
+            textarea.value += `\t`;
+            notSpecialKey = true;
+        }
+
+        if (caps) {
+            if (event.code != 'CapsLock' && event.code != 'Backspace' && event.code != 'Delete' && event.code != 'Tab' && event.code != 'ShiftLeft' && event.code != 'ShiftRight' && event.code != 'ControlLeft' && event.code != 'ControlRight' && event.code != 'AltLeft' && event.code != 'AltRight' && keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+                textarea.value += keyboardKeysItems[event.code][currentLanguage].toUpperCase();
+
+            }
+        }
+        if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+            let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
+            keyItemsArray[keyIndex].classList.add('_key-active');
+        }
+
+
+    });
+    document.addEventListener('keyup', (event) => {
+
+        if (keyboardKeysItems[event.code] && keyboardKeysItems[event.code][currentLanguage]) {
+            let keyIndex = keyItemsArray.findIndex((key) => key.id === event.code);
+            keyItemsArray[keyIndex].classList.remove('_key-active');
+        }
+
+    })
+}
+
+onClickInTextArea();
